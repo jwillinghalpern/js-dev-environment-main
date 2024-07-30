@@ -23,3 +23,15 @@ At this point you should see the web viewer on the layout load up with the HTML 
 
 ## Use this kit
 Now you're ready to use this kit to create awesome JS widgets.
+
+## Upload Method
+The JS Dev Kit allows for two methods of loading your widget code into Filemaker:
+
+### Insert Record
+The default behavior when uploading is to save the widget code into a field named `HTML` in the `HTML` table. When the widget is loaded, the code is retrieved from this field and displayed in teh WebViewer. This method works well in most situations.
+
+### Insert Text
+In certain scenarios, you may want to save the code for your widget into a FileMaker script using the `Insert Text` script step. This can be advantageous when deploying a file, as the configuration for the widget is saved with the rest of your scripts and does not require updating the configuration data after a migration. A script can then set the contents of the WebViewer from the vairable. Normaly FileMaker has a limmit of 30,000 characters for `Insert Text` script step, but JS Dev Kit has a method to bypass the character limmit in filemaker allowing any amount of code to be stored in the script step. 
+
+
+The method behavour can be set file `widget.config.js` by changing the property `'method: "record"` to `'method: "insertText"`.
