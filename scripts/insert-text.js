@@ -8,7 +8,7 @@ const path = require("path");
 
 const insertTextFilePath = path.join(__dirname, "../", insertTextFileName + '.fmp12');
 
-const fileUrl = `fmp://${server}/${insertTextFile}?script=setText&param=`;
+const fileUrl = `fmp://${server}/${insertTextFileName}?script=setText&param=`;
 
 const thePath = path.join(__dirname, "../", "dist", "index.html");
 const params = {
