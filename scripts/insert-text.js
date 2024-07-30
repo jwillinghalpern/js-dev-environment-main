@@ -7,6 +7,7 @@ const open = require("open");
 const path = require("path");
 
 const insertTextFilePath = path.join(__dirname, "../", insertTextFileName + '.fmp12');
+open(insertTextFilePath);
 
 const fileUrl = `fmp://${server}/${insertTextFileName}?script=setText&param=`;
 
