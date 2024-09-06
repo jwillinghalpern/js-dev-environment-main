@@ -23,7 +23,8 @@ function encodeHTMLEntities(text) {
 
 let text;
 try {
-	text = fs.readFileSync("dist/index.html", "utf8");
+  const thePath = path.join(__dirname, "../", "dist", "index.html");
+	text = fs.readFileSync(thePath, "utf8");
 } catch (error) {
 	console.error("\x1b[31m%s\x1b[0m", "❌ Error reading 'dist/index.html':", error.message);
 	process.exit(1); // Exit the program with a failure status code
@@ -46,7 +47,6 @@ const insertText = `
 	</fmxmlsnippet>`;
 
 // Create a temporary file path in the current working directory
-// const tempFilePath = path.join(process.cwd(), "temp_insert_text.txt");
 const tempFilePath = path.join(os.tmpdir(), "temp_insert_text.txt");
 
 try {
