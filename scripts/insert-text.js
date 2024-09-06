@@ -2,6 +2,7 @@ const config = require("../widget.config");
 const fs = require("fs");
 const child_process = require("child_process");
 const path = require("path");
+const os = require("os");
 
 const { insertTextVariableName } = config;
 
@@ -22,9 +23,9 @@ function encodeHTMLEntities(text) {
 
 let text;
 try {
-	text = fs.readFileSync("app/index.html", "utf8");
+	text = fs.readFileSync("dist/index.html", "utf8");
 } catch (error) {
-	console.error("\x1b[31m%s\x1b[0m", "❌ Error reading 'app/index.html':", error.message);
+	console.error("\x1b[31m%s\x1b[0m", "❌ Error reading 'dist/index.html':", error.message);
 	process.exit(1); // Exit the program with a failure status code
 }
 
@@ -45,7 +46,8 @@ const insertText = `
 	</fmxmlsnippet>`;
 
 // Create a temporary file path in the current working directory
-const tempFilePath = path.join(process.cwd(), "temp_insert_text.txt");
+// const tempFilePath = path.join(process.cwd(), "temp_insert_text.txt");
+const tempFilePath = path.join(os.tmpdir(), "temp_insert_text.txt");
 
 try {
 	fs.writeFileSync(tempFilePath, insertText);
@@ -63,9 +65,6 @@ try {
 		`osascript -e 'set the clipboard to (do shell script "pbpaste" as «class XMSS»)'`
 	);
 
-	// Remove the temp file
-	fs.unlinkSync(tempFilePath);
-
 	console.log(
 		"\x1b[32m%s\x1b[0m",
 		`🎉 The HTML text was copied to the clipboard and formatted for FileMaker! Go paste it into FileMaker!`
@@ -73,4 +72,11 @@ try {
 } catch (error) {
 	console.error("\x1b[31m%s\x1b[0m", "❌ Error copying content to clipboard or removing the file:", error.message);
 	process.exit(1); // Exit the program with a failure status code
+}
+
+// Remove the temp file
+try {
+	// fs.unlinkSync(tempFilePath);
+} catch(error) {
+  console.warn("\x1b[31m%s\x1b[0m", "❌ Error removing the temporary file, but that's ok to ignore:", error.message);
 }

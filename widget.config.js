@@ -1,8 +1,8 @@
 module.exports = {
   widgetName: "jsDev",
   server: "$",
-  method: "record",
-  // method: "insertText",
+  // method: "record",
+  method: "insertText",
   file: "jsDev",
   uploadScript: "UploadToHTML",
   reloadScript: "Load Widget",
